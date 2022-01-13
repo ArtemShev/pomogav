@@ -26,35 +26,34 @@
             </div>
             <div class="right-navbar">
                 <a href="#" class="icon-account">
-                <?php
+                    <?php
                     session_start();
                     require_once('../src/db.php');
                     global $DBlink;
                     mysqli_query($DBlink,"SET NAMES UTF8");
                     mysqli_query($DBlink,"SET CHARACTER SET UTF8");
                     $user_id = $_SESSION['user_id'];
-                    $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
-                    // var_dump($result);
-                    $shelter_image = mysqli_fetch_assoc($get_image);
-                    if($_SESSION['role'] == 'приют'){
-                        if($shelter_image['imagename']==null){
-                            printf("<img class='acc-img' src='../img/user.png'>");
-                        }else{
-                            printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
+                    if($user_id !=null){
+                        var_dump($user_id);
+                        $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
+                        $shelter_image = mysqli_fetch_array($get_image);
+                        if($_SESSION['role'] == 'приют'){
+                            if($shelter_image['imagename']==null){
+                                printf("<img class='acc-img' src='../img/user.png'>");
+                            }else{
+                                printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
 
+                            }
+                        }else{
+                            printf("<img class='acc-img' src='../img/user.png'>");
                         }
-                    }else{
+                    } else{
                         printf("<img class='acc-img' src='../img/user.png'>");
                     }
-
                     ?>
-
                 </a>
                 <div class="navbar-registration">
-                    <div class="reg-link-wraper">
-                        <a href="./login.php" class="registration-link">Войти</a>
-                        <!-- <a href="../src/logout.php" class="registration-link">Выйти</a> -->
-                    </div>
+                    <a href="./login.php" class="registration-link">Войти</a>
                     <a href="./registr.php" class="registration-link">Регистрация</a>
                 </div>
             </div>
@@ -63,8 +62,7 @@
     <main>
         <section class="container main-block-index-page">
             <div class="button-div">
-                <p class="text">Здравствуй дорогой друг, этот сайт является работой группы студентов, которая просто хочет помочь животным. На&nbsp;данном сайте вы&nbsp;сможете найти информацию о&nbsp;потребностях конкретных приютов и&nbsp;связаться с&nbsp;ними. Также,
-                    если ты&nbsp;волонтёр, то&nbsp;тут ты&nbsp;можешь поискать, кому нужна не только материальная помощь.</p>
+                <p class="text">На&nbsp;этом сайте мы&nbsp;хотим собрать кург людей связанный с&nbsp;благотворительностью. Мы&nbsp;планируем развивать наш продукт. Добавлять различные функции и&nbsp;улучшать существующие.Нажав на&nbsp;кнопку ниже вы&nbsp;попадете на&nbsp;страницу с&nbsp;запросами различных приютов, которым нужна помощь. Мы&nbsp;хотим чтобы это стало площадкой, которая позволит совершать еще больше добрых дел. Вместе мы&nbsp;сделаем этот мир лучше!</p>
                 <a href="./inquiries.php" class="help-button">Кнопка помощи</a>
             </div>
             <img src="../img/dog.png" alt="dog" class="dog-img">

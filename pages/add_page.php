@@ -33,17 +33,20 @@
                     mysqli_query($DBlink,"SET NAMES UTF8");
                     mysqli_query($DBlink,"SET CHARACTER SET UTF8");
                     $user_id = $_SESSION['user_id'];
-                    $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
-                    // var_dump($result);
-                    $shelter_image = mysqli_fetch_assoc($get_image);
-                    if($_SESSION['role'] == 'приют'){
-                        if($shelter_image['imagename']==null){
-                            printf("<img class='acc-img' src='../img/user.png'>");
-                        }else{
-                            printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
+                    if($user_id !=null){
+                        $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
+                        $shelter_image = mysqli_fetch_array($get_image);
+                        if($_SESSION['role'] == 'приют'){
+                            if($shelter_image['imagename']==null){
+                                printf("<img class='acc-img' src='../img/user.png'>");
+                            }else{
+                                printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
 
+                            }
+                        }else{
+                            printf("<img class='acc-img' src='../img/user.png'>");
                         }
-                    }else{
+                    } else{
                         printf("<img class='acc-img' src='../img/user.png'>");
                     }
 
@@ -69,13 +72,10 @@
                     <span class="button-description">Размещайте запросы о&nbsp;помощи вашему приюту для волонтеров</span>
                 </div>
             </div>
-            <img src="../img/cat_8.png" alt="cat" class="pets-img">
+            <img src="../img/cats.png" alt="cat" class="pets-img">
         </section>
 
     </main>
-    <!-- <footer>
-
-    </footer> -->
 </body>
 
 </html>

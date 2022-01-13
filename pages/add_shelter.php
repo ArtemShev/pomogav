@@ -32,17 +32,20 @@
                     mysqli_query($DBlink,"SET NAMES UTF8");
                     mysqli_query($DBlink,"SET CHARACTER SET UTF8");
                     $user_id = $_SESSION['user_id'];
-                    $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
-                    // var_dump($result);
-                    $shelter_image = mysqli_fetch_assoc($get_image);
-                    if($_SESSION['role'] == 'приют'){
-                        if($shelter_image['imagename']==null){
-                            printf("<img class='acc-img' src='../img/user.png'>");
-                        }else{
-                            printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
+                    if($user_id !=null){
+                        $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
+                        $shelter_image = mysqli_fetch_array($get_image);
+                        if($_SESSION['role'] == 'приют'){
+                            if($shelter_image['imagename']==null){
+                                printf("<img class='acc-img' src='../img/user.png'>");
+                            }else{
+                                printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
 
+                            }
+                        }else{
+                            printf("<img class='acc-img' src='../img/user.png'>");
                         }
-                    }else{
+                    } else{
                         printf("<img class='acc-img' src='../img/user.png'>");
                     }
 
@@ -117,7 +120,6 @@ if(isset($_POST['add_shelter'])) {
 if(isset($message))
 {
 echo '<div style="color:#FF0000;text-align:center;font-size:12px;">'.$message.'</div>';
-// var_dump($_SERVER['DOCUMENT_ROOT'],$image_name,$temp_name);
 }
 $query = "INSERT INTO shelters VALUES (id,'".$_SESSION['user_id']."','".$_POST['shelter_name']."','".$_POST['description']."','".$_POST['phone_number']."','".$_POST['address']."','../images/','$image_name')";
 $result_query = mysqli_query($DBlink, $query);
@@ -128,14 +130,6 @@ if($result_query != false){
 }
 } else {
     echo '<div class = "warning">Вы не можете добавлять приюты</div>';
-    // var_dump($_SESSION['role']);
 }
-// $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
-    // $imagename=$_FILES["myimage"]["name"];
-    // var_dump($_SESSION['user_id']);
-    // var_dump($query);
-    // var_dump($_POST['shelter_name']);
-    // header('location: ./success_log.php');
-    // die();
 }
 ?>
