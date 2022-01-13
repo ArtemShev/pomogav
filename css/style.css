@@ -9,18 +9,11 @@
 
 body {
     font-family: Roboto, sans-serif;
-    /* height: fit-content;*/
     background-color: #6b300f;
     height: 100%;
     max-width: 100%;
     min-width: 1300px;
 }
-
-
-/* button:focus,
-button:active {
-    outline: none;
-} */
 
 fieldset {
     padding: 0;
@@ -72,11 +65,6 @@ a {
     box-sizing: border-box;
 }
 
-
-/* .logo {
-    box-shadow: 0px 0px 15px 10px #000;
-} */
-
 .title {
     margin-left: 2%;
     text-shadow: 0px 4px 4px black;
@@ -112,11 +100,6 @@ a {
     padding-top: 45px;
     margin-left: 130px;
 }
-
-
-/* .icon-account {
-    background-color: grey;
-} */
 
 .acc-img {
     border-radius: 50%;
@@ -163,6 +146,7 @@ main {
     font-weight: 400;
     font-size: 25px;
     line-height: 30px;
+    max-width: 700px;
 }
 
 .help-button {
@@ -412,7 +396,6 @@ main {
     font-size: 25px;
     font-weight: 400;
     line-height: 29px;
-    /* text-align: center; */
 }
 
 .shelter-discr-and-inq {
@@ -421,7 +404,6 @@ main {
     font-size: 25px;
     font-weight: 400;
     line-height: 29px;
-    /* text-align: center; */
     margin-right: 100px;
 }
 
@@ -449,12 +431,6 @@ main {
 }
 
 
-/*
-.one-inq:not(:first-child)::before {
-    content: ", ";
-} */
-
-
 /* о нас */
 
 .about-us-wrapper {
@@ -473,7 +449,6 @@ main {
 .p-and-video {
     display: flex;
     flex-direction: row;
-    /* border: #FFFFFF solid 1px; */
 }
 
 .about-us-descr {
@@ -483,8 +458,8 @@ main {
 }
 
 .about-us-video {
-    height: 400px;
-    width: 600px;
+    height: 500px;
+    width: 750px;
     padding: 0 20px;
     background-color: #d1af89;
 }

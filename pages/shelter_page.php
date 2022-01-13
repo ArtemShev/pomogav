@@ -9,12 +9,9 @@
                 mysqli_query($DBlink,"SET CHARACTER SET UTF8");
                 $shel_id = $_GET['shelter_id'];
                 $result = mysqli_query($DBlink, "SELECT * FROM shelters WHERE id = {$shel_id}");
-                // var_dump($result);
                 $shelter = mysqli_fetch_assoc($result);
-                // $result2= mysqli_query($DBlink,"SELECT description FROM inquiries WHERE shelter_id = '".$result['id']."' ORDER BY id DESC LIMIT 1;")
                 $result2= mysqli_query($DBlink,"SELECT description FROM inquiries WHERE shelter_id = {$shel_id} ORDER BY id DESC;");
                 $inquiry = mysqli_fetch_assoc($result2);
-                // printf("<div class='shelter'><img class='shelter-img' src='../img/заглушка.jpeg'><div class='shelter-filling'><span class='shelter-name'>".stripQuotes($shelter['shelter_name'])."</span><p class='shelter-description'>Описание приюта: ".stripQuotes($shelter['description'])."</p><div class='link-wrapper'><span class='last-inq'>Последний запрос: ".stripQuotes($inquiry['description'])." </span><a href='../pages/shelter_page?shelter_id={$shelter['id']}' class='shelter-link'>Подробнее ❯❯</a></div></div></div>");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,23 +48,24 @@
                     mysqli_query($DBlink,"SET NAMES UTF8");
                     mysqli_query($DBlink,"SET CHARACTER SET UTF8");
                     $user_id = $_SESSION['user_id'];
-                    // var_dump($_SESSION['user_id']);
-                    $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
-                    // var_dump($result);
-                    $shelter_image = mysqli_fetch_assoc($get_image);
-                    if($_SESSION['role'] == 'приют'){
-                        if($shelter_image['imagename']==null){
-                            printf("<img class='acc-img' src='../img/user.png'>");
-                        }else{
-                            printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
+                    if($user_id !=null){
+                        $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
+                        $shelter_image = mysqli_fetch_array($get_image);
+                        if($_SESSION['role'] == 'приют'){
+                            if($shelter_image['imagename']==null){
+                                printf("<img class='acc-img' src='../img/user.png'>");
+                            }else{
+                                printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
 
+                            }
+                        }else{
+                            printf("<img class='acc-img' src='../img/user.png'>");
                         }
-                    }else{
+                    } else{
                         printf("<img class='acc-img' src='../img/user.png'>");
                     }
-                    var_dump($_SESSION['user_id']);
 
-                        ?>
+                    ?>
 
                 </a>
                 <div class="navbar-registration">
@@ -105,7 +103,7 @@
                     <span class="h1-inq">Запросы:</span>
                     <div class="inq">
                         <?php
-                            // $result2= mysqli_query($DBlink,"SELECT description FROM inquiries WHERE shelter_id = {$shel_id} ORDER BY id DESC");
+                            $result2= mysqli_query($DBlink,"SELECT description FROM inquiries WHERE shelter_id = {$shel_id} ORDER BY id DESC");
                             while($inquiry = mysqli_fetch_array($result2)){
                                 printf("<span class='one-inq'>".stripQuotes($inquiry['description'])."</span>");
                             };
@@ -115,9 +113,6 @@
             </section>
         </section>
     </main>
-    <!-- <footer>
-
-    </footer> -->
 </body>
 
 </html>

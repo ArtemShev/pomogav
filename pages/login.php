@@ -1,7 +1,6 @@
                     <?php
                     session_start();
                     if (isset($_POST['email'],$_POST['password'])){
-
                         $_SESSION['email'] = $_POST['email'];
                         require_once '../src/db.php';
                         global $DBlink;
@@ -16,13 +15,14 @@
                             $_SESSION['islogged'] = 1;
                             $_SESSION['role']=$result['role'];
                             if($result['role']=='приют'){
-                                var_dump($_SESSION['user_id']);
-                                var_dump($_SESSION['role']);
+                                // var_dump($_SESSION['user_id']);
+                                // var_dump($_SESSION['role']);
                                 header('location: ./add_page.php');
+                                die();
                             } else {
                                 header('location: ./inquiries.php');
+                                die();
                             }
-                            // die();
                         } else {
                             $warning = '<div class="warning"> Неправильные данные</div>';
                         }
@@ -61,17 +61,20 @@
                     mysqli_query($DBlink,"SET NAMES UTF8");
                     mysqli_query($DBlink,"SET CHARACTER SET UTF8");
                     $user_id = $_SESSION['user_id'];
-                    $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
-                    // var_dump($result);
-                    $shelter_image = mysqli_fetch_assoc($get_image);
-                    if($_SESSION['role'] == 'приют'){
-                        if($shelter_image['imagename']==null){
-                            printf("<img class='acc-img' src='../img/user.png'>");
-                        }else{
-                            printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
+                    if($user_id !=null){
+                        $get_image = mysqli_query($DBlink, "SELECT * FROM shelters WHERE user_id = {$user_id}");
+                        $shelter_image = mysqli_fetch_array($get_image);
+                        if($_SESSION['role'] == 'приют'){
+                            if($shelter_image['imagename']==null){
+                                printf("<img class='acc-img' src='../img/user.png'>");
+                            }else{
+                                printf("<img class='acc-img' src='".$shelter_image['imagepath'].$shelter_image['imagename']."'>");
 
+                            }
+                        }else{
+                            printf("<img class='acc-img' src='../img/user.png'>");
                         }
-                    }else{
+                    } else{
                         printf("<img class='acc-img' src='../img/user.png'>");
                     }
 
