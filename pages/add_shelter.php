@@ -119,7 +119,7 @@ if(isset($_POST['add_shelter'])) {
 
 if(isset($message))
 {
-echo '<div style="color:#FF0000;text-align:center;font-size:12px;">'.$message.'</div>';
+echo '<div style="text-align:center;font-size:12px;">'.$message.'</div>';
 }
 $query = "INSERT INTO shelters VALUES (id,'".$_SESSION['user_id']."','".$_POST['shelter_name']."','".$_POST['description']."','".$_POST['phone_number']."','".$_POST['address']."','../images/','$image_name')";
 $result_query = mysqli_query($DBlink, $query);
